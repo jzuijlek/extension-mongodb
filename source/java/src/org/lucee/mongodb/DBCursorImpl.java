@@ -246,11 +246,17 @@ public class DBCursorImpl extends DBCursorImplSupport {
 			checkArgLength("sort",args,1,1);
 			return toCFML(cursor.sort(toDBObject(args[0])));
 		}
+		// noCursorTimeout
+		if(methodName.equals("noCursorTimeout")) {
+			checkArgLength("noCursorTimeout",args,0,0);
+			cursor.noCursorTimeout(true);
+			return null;
+		}
 
 		String supportedFunctions=
 			"addOption,addSpecial,batchSize,copy,count,curr,explain,getCollection,getCursorId,getDecoderFactory,getKeysWanted,getOptions," +
 			"getQuery,getReadPreference,getServerAddress,getSizes,hasNext,itcount,iterator,length,next,numGetMores,numSeen,resetOptions," +
-			"size,snapshot,toArray,close,remove,hint,limit,setOptions,skip,sort";
+			"size,snapshot,toArray,close,remove,hint,limit,setOptions,skip,sort,noCursorTimeout";
 
 		throw exp.createExpressionException("function ["+methodName+"] is not supported, supported functions are ["+supportedFunctions+"]");
 
